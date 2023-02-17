@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Linear Regression", "Linear Regression\Linear Regression.csproj", "{23F6FB98-8D08-41B7-93E4-2F3DF05FF9AB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Linear Regression", "Linear Regression.csproj", "{23F6FB98-8D08-41B7-93E4-2F3DF05FF9AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
