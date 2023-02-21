@@ -38,6 +38,7 @@
             this.applyButton = new System.Windows.Forms.Button();
             this.limitTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.dataButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // uploadXButton
@@ -90,12 +91,13 @@
             // 
             // graphButton
             // 
-            this.graphButton.Location = new System.Drawing.Point(93, 139);
+            this.graphButton.Location = new System.Drawing.Point(94, 168);
             this.graphButton.Name = "graphButton";
             this.graphButton.Size = new System.Drawing.Size(75, 23);
             this.graphButton.TabIndex = 3;
             this.graphButton.Text = "Show Graph";
             this.graphButton.UseVisualStyleBackColor = true;
+            this.graphButton.Click += new System.EventHandler(this.graphButton_Click);
             // 
             // calculateButton
             // 
@@ -109,7 +111,7 @@
             // 
             // applyButton
             // 
-            this.applyButton.Location = new System.Drawing.Point(12, 168);
+            this.applyButton.Location = new System.Drawing.Point(94, 139);
             this.applyButton.Name = "applyButton";
             this.applyButton.Size = new System.Drawing.Size(75, 23);
             this.applyButton.TabIndex = 3;
@@ -133,12 +135,24 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Max Limit";
             // 
+            // dataButton
+            // 
+            this.dataButton.Enabled = false;
+            this.dataButton.Location = new System.Drawing.Point(12, 168);
+            this.dataButton.Name = "dataButton";
+            this.dataButton.Size = new System.Drawing.Size(75, 23);
+            this.dataButton.TabIndex = 3;
+            this.dataButton.Text = "Show Data";
+            this.dataButton.UseVisualStyleBackColor = true;
+            this.dataButton.Click += new System.EventHandler(this.dataButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(229, 232);
+            this.ClientSize = new System.Drawing.Size(229, 281);
             this.Controls.Add(this.limitTextBox);
+            this.Controls.Add(this.dataButton);
             this.Controls.Add(this.graphButton);
             this.Controls.Add(this.calculateButton);
             this.Controls.Add(this.applyButton);
@@ -167,6 +181,7 @@
         private System.Windows.Forms.Button applyButton;
         private System.Windows.Forms.TextBox limitTextBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button dataButton;
     }
 }
 

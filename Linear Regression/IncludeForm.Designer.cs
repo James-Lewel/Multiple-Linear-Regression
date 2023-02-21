@@ -72,7 +72,7 @@
             this.Controls.Add(this.yesButton);
             this.Name = "IncludeForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "IncludeForm";
+            this.Text = "Data";
             this.ResumeLayout(false);
             this.PerformLayout();
 
