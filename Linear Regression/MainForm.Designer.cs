@@ -36,11 +36,13 @@
             this.graphButton = new System.Windows.Forms.Button();
             this.calculateButton = new System.Windows.Forms.Button();
             this.applyButton = new System.Windows.Forms.Button();
+            this.limitTextBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // uploadXButton
             // 
-            this.uploadXButton.Location = new System.Drawing.Point(13, 30);
+            this.uploadXButton.Location = new System.Drawing.Point(12, 12);
             this.uploadXButton.Name = "uploadXButton";
             this.uploadXButton.Size = new System.Drawing.Size(181, 23);
             this.uploadXButton.TabIndex = 0;
@@ -50,7 +52,7 @@
             // 
             // uploadYButton
             // 
-            this.uploadYButton.Location = new System.Drawing.Point(12, 76);
+            this.uploadYButton.Location = new System.Drawing.Point(12, 54);
             this.uploadYButton.Name = "uploadYButton";
             this.uploadYButton.Size = new System.Drawing.Size(181, 23);
             this.uploadYButton.TabIndex = 1;
@@ -61,7 +63,7 @@
             // xLabel
             // 
             this.xLabel.AutoSize = true;
-            this.xLabel.Location = new System.Drawing.Point(13, 60);
+            this.xLabel.Location = new System.Drawing.Point(12, 38);
             this.xLabel.Name = "xLabel";
             this.xLabel.Size = new System.Drawing.Size(61, 13);
             this.xLabel.TabIndex = 2;
@@ -70,7 +72,7 @@
             // yLabel
             // 
             this.yLabel.AutoSize = true;
-            this.yLabel.Location = new System.Drawing.Point(10, 102);
+            this.yLabel.Location = new System.Drawing.Point(9, 80);
             this.yLabel.Name = "yLabel";
             this.yLabel.Size = new System.Drawing.Size(61, 13);
             this.yLabel.TabIndex = 2;
@@ -78,7 +80,7 @@
             // 
             // resetButton
             // 
-            this.resetButton.Location = new System.Drawing.Point(12, 200);
+            this.resetButton.Location = new System.Drawing.Point(12, 197);
             this.resetButton.Name = "resetButton";
             this.resetButton.Size = new System.Drawing.Size(75, 23);
             this.resetButton.TabIndex = 3;
@@ -88,7 +90,7 @@
             // 
             // graphButton
             // 
-            this.graphButton.Location = new System.Drawing.Point(93, 142);
+            this.graphButton.Location = new System.Drawing.Point(93, 139);
             this.graphButton.Name = "graphButton";
             this.graphButton.Size = new System.Drawing.Size(75, 23);
             this.graphButton.TabIndex = 3;
@@ -98,7 +100,7 @@
             // calculateButton
             // 
             this.calculateButton.Enabled = false;
-            this.calculateButton.Location = new System.Drawing.Point(12, 142);
+            this.calculateButton.Location = new System.Drawing.Point(12, 139);
             this.calculateButton.Name = "calculateButton";
             this.calculateButton.Size = new System.Drawing.Size(75, 23);
             this.calculateButton.TabIndex = 3;
@@ -107,7 +109,7 @@
             // 
             // applyButton
             // 
-            this.applyButton.Location = new System.Drawing.Point(12, 171);
+            this.applyButton.Location = new System.Drawing.Point(12, 168);
             this.applyButton.Name = "applyButton";
             this.applyButton.Size = new System.Drawing.Size(75, 23);
             this.applyButton.TabIndex = 3;
@@ -115,15 +117,33 @@
             this.applyButton.UseVisualStyleBackColor = true;
             this.applyButton.Click += new System.EventHandler(this.applyButton_Click);
             // 
+            // limitTextBox
+            // 
+            this.limitTextBox.Location = new System.Drawing.Point(12, 97);
+            this.limitTextBox.Name = "limitTextBox";
+            this.limitTextBox.Size = new System.Drawing.Size(100, 20);
+            this.limitTextBox.TabIndex = 4;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(118, 100);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(51, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Max Limit";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(229, 232);
+            this.Controls.Add(this.limitTextBox);
             this.Controls.Add(this.graphButton);
             this.Controls.Add(this.calculateButton);
             this.Controls.Add(this.applyButton);
             this.Controls.Add(this.resetButton);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.yLabel);
             this.Controls.Add(this.xLabel);
             this.Controls.Add(this.uploadYButton);
@@ -145,6 +165,8 @@
         private System.Windows.Forms.Button graphButton;
         private System.Windows.Forms.Button calculateButton;
         private System.Windows.Forms.Button applyButton;
+        private System.Windows.Forms.TextBox limitTextBox;
+        private System.Windows.Forms.Label label1;
     }
 }
 

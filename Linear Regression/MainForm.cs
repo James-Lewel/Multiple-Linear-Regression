@@ -11,8 +11,9 @@ namespace Linear_Regression
             InitializeComponent();
         }
 
-        private List<string> independentValues = new List<string>();
-        private List<string> dependentValues = new List<string>();
+        private List<List<string>> independentValues = new List<List<string>>();
+        private List<List<string>> dependentValues = new List<List<string>>();
+        private int maxLimit;
         private bool xFileExist = false;
         private bool yFileExist = false;
 
@@ -29,10 +30,34 @@ namespace Linear_Regression
                 {
                     // Reads and store raw data
                     string[] rawCSV = System.IO.File.ReadAllLines(openFileDialog.FileName);
-                    
-                    for(int i = 1; i <= 25; i++)
-                    {
+                    string[] tempCSV = rawCSV[0].Split(',');
+                    bool[] includeCSV = new bool[tempCSV.Length];
 
+                    for (int i = 0; i < tempCSV.Length; i++)
+                    {
+                        IncludeForm includeForm = new IncludeForm(tempCSV[i]);
+                        includeForm.ShowDialog();
+
+                        if(includeForm.DialogResult == DialogResult.Yes)
+                            includeCSV[i] = true;
+                        else
+                            includeCSV[i] = false;
+                    }
+
+                    for (int i = 0; i < rawCSV.Length; i++)
+                    {
+                        // Adds sublist
+                        independentValues.Add(new List<string>());
+
+                        tempCSV = rawCSV[i].Split(',');
+
+                        for (int j = 0; j < tempCSV.Length; j++)
+                        {
+                            if (includeCSV[j] == false) 
+                                continue;
+
+                            independentValues[i].Add(tempCSV[j]);
+                        }
                     }
 
                     xLabel.Text = "File : Updated";
@@ -54,10 +79,34 @@ namespace Linear_Regression
                 {
                     // Reads and store raw data
                     string[] rawCSV = System.IO.File.ReadAllLines(openFileDialog.FileName);
+                    string[] tempCSV = rawCSV[0].Split(',');
+                    bool[] includeCSV = new bool[tempCSV.Length];
 
-                    for (int i = 1; i <= 25; i++)
+                    for (int i = 0; i < tempCSV.Length; i++)
                     {
+                        IncludeForm includeForm = new IncludeForm(tempCSV[i]);
+                        includeForm.ShowDialog();
 
+                        if (includeForm.DialogResult == DialogResult.Yes)
+                            includeCSV[i] = true;
+                        else
+                            includeCSV[i] = false;
+                    }
+
+                    for (int i = 0; i < rawCSV.Length; i++)
+                    {
+                        // Adds sublist
+                        dependentValues.Add(new List<string>());
+
+                        tempCSV = rawCSV[i].Split(',');
+
+                        for (int j = 0; j < tempCSV.Length; j++)
+                        {
+                            if (includeCSV[j] == false)
+                                continue;
+
+                            dependentValues[i].Add(tempCSV[j]);
+                        }
                     }
 
                     yLabel.Text = "File : Updated";
@@ -68,6 +117,15 @@ namespace Linear_Regression
 
         private void applyButton_Click(object sender, EventArgs e)
         {
+            if(string.IsNullOrEmpty(limitTextBox.Text))
+            {
+                maxLimit = independentValues.Count;
+            }
+            else
+            {
+                maxLimit = int.Parse(limitTextBox.Text);
+            }
+
             if(xFileExist && yFileExist)
             {
                 calculateButton.Enabled = true;
@@ -76,6 +134,9 @@ namespace Linear_Regression
 
         private void resetButton_Click(object sender, EventArgs e)
         {
+            independentValues.Clear();
+            dependentValues.Clear();
+
             xFileExist = false;
             yFileExist = false;
 
