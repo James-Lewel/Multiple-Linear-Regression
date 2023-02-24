@@ -129,10 +129,6 @@ namespace Linear_Regression
             else
                 maxLimit = int.Parse(limitTextBox.Text);
 
-            // Enables && Disables buttons
-            if (xFileExist && yFileExist)
-                calculateButton.Enabled = true;
-
             if (independentValues.Count > 0 && dependentValues.Count > 0)
                 dataButton.Enabled = true;
 
@@ -154,7 +150,6 @@ namespace Linear_Regression
             uploadXButton.Enabled = true;
             uploadYButton.Enabled = true;
 
-            calculateButton.Enabled = false;
             dataButton.Enabled = false;
 
             // Resets labels

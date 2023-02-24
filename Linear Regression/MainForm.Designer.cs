@@ -34,7 +34,6 @@
             this.yLabel = new System.Windows.Forms.Label();
             this.resetButton = new System.Windows.Forms.Button();
             this.graphButton = new System.Windows.Forms.Button();
-            this.calculateButton = new System.Windows.Forms.Button();
             this.applyButton = new System.Windows.Forms.Button();
             this.limitTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -81,7 +80,7 @@
             // 
             // resetButton
             // 
-            this.resetButton.Location = new System.Drawing.Point(12, 197);
+            this.resetButton.Location = new System.Drawing.Point(93, 168);
             this.resetButton.Name = "resetButton";
             this.resetButton.Size = new System.Drawing.Size(75, 23);
             this.resetButton.TabIndex = 3;
@@ -91,7 +90,8 @@
             // 
             // graphButton
             // 
-            this.graphButton.Location = new System.Drawing.Point(94, 168);
+            this.graphButton.Enabled = false;
+            this.graphButton.Location = new System.Drawing.Point(93, 139);
             this.graphButton.Name = "graphButton";
             this.graphButton.Size = new System.Drawing.Size(75, 23);
             this.graphButton.TabIndex = 3;
@@ -99,19 +99,9 @@
             this.graphButton.UseVisualStyleBackColor = true;
             this.graphButton.Click += new System.EventHandler(this.graphButton_Click);
             // 
-            // calculateButton
-            // 
-            this.calculateButton.Enabled = false;
-            this.calculateButton.Location = new System.Drawing.Point(12, 139);
-            this.calculateButton.Name = "calculateButton";
-            this.calculateButton.Size = new System.Drawing.Size(75, 23);
-            this.calculateButton.TabIndex = 3;
-            this.calculateButton.Text = "Calculate";
-            this.calculateButton.UseVisualStyleBackColor = true;
-            // 
             // applyButton
             // 
-            this.applyButton.Location = new System.Drawing.Point(94, 139);
+            this.applyButton.Location = new System.Drawing.Point(12, 168);
             this.applyButton.Name = "applyButton";
             this.applyButton.Size = new System.Drawing.Size(75, 23);
             this.applyButton.TabIndex = 3;
@@ -138,7 +128,7 @@
             // dataButton
             // 
             this.dataButton.Enabled = false;
-            this.dataButton.Location = new System.Drawing.Point(12, 168);
+            this.dataButton.Location = new System.Drawing.Point(12, 139);
             this.dataButton.Name = "dataButton";
             this.dataButton.Size = new System.Drawing.Size(75, 23);
             this.dataButton.TabIndex = 3;
@@ -150,11 +140,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(229, 281);
+            this.ClientSize = new System.Drawing.Size(204, 211);
             this.Controls.Add(this.limitTextBox);
             this.Controls.Add(this.dataButton);
             this.Controls.Add(this.graphButton);
-            this.Controls.Add(this.calculateButton);
             this.Controls.Add(this.applyButton);
             this.Controls.Add(this.resetButton);
             this.Controls.Add(this.label1);
@@ -177,7 +166,6 @@
         private System.Windows.Forms.Label yLabel;
         private System.Windows.Forms.Button resetButton;
         private System.Windows.Forms.Button graphButton;
-        private System.Windows.Forms.Button calculateButton;
         private System.Windows.Forms.Button applyButton;
         private System.Windows.Forms.TextBox limitTextBox;
         private System.Windows.Forms.Label label1;
