@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MathNet.Numerics.LinearRegression;
+using MathNet.Numerics.LinearAlgebra;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -12,17 +14,17 @@ namespace Linear_Regression
 
         List<List<string>> independentValues;
         List<List<string>> dependentValues;
-        
+
         int maxLimit;
         int xCount;
         int yCount;
 
-        double[,] xValues;
-        double[] yValues; 
-
+        double sumOfY;
         double[] sumOfX;
-        double[] sumOfXSquared;
-        double[] sumOfXY;
+
+        double[,] xArray1;
+        double[,] xArray2;
+        double[] yArray;
 
         double a;
         double[] b;
@@ -66,12 +68,12 @@ namespace Linear_Regression
             xCount = independentValues[0].Count;
             yCount = dependentValues[0].Count;
 
-            xValues = new double[xCount, maxLimit];
-            yValues = new double[maxLimit];
-
+            sumOfY = 0;
             sumOfX = new double[xCount];
-            sumOfXSquared = new double[xCount];
-            sumOfXY = new double[xCount];
+
+            xArray1 = new double[maxLimit, xCount];
+            xArray2 = new double[xCount, maxLimit];
+            yArray = new double[maxLimit];
 
             a = 0;
             b = new double[xCount];
@@ -84,42 +86,77 @@ namespace Linear_Regression
             {
                 for (int j = 0; j < maxLimit; j++)
                 {
-                    series[i].Points.AddXY(xValues[i, j], yValues[j]);
+                    series[i].Points.AddXY(xArray2[i, j], yArray[j]);
                 }
             }
         }
 
         private void calculateRegression()
         {
+            // Transfers list to array
+            for (int i = 1; i <= maxLimit; i++)
+            {
+                for (int j = 0; j < xCount; j++)
+                {
+                    xArray1[i - 1, j] = double.Parse(independentValues[i][j]);
+                    //sumOfX[i] += xValues[i, j - 1];
+                }
+            }
 
             // Transfers list to array
             for (int i = 0; i < xCount; i++)
             {
                 for (int j = 1; j <= maxLimit; j++)
                 {
-                    xValues[i, j - 1] = double.Parse(independentValues[j][i]);
+                    xArray2[i, j - 1] = double.Parse(independentValues[j][i]);
+                    sumOfX[i] += xArray2[i, j - 1];
                 }
             }
+
 
             // Transfers list to array
             for (int i = 0; i < yCount; i++)
             {
                 for (int j = 1; j <= maxLimit; j++)
                 {
-                    yValues[j - 1] = double.Parse(dependentValues[j][i]);
+                    yArray[j - 1] = double.Parse(dependentValues[j][i]);
+                    sumOfY += yArray[j - 1];
                 }
             }
 
-            // Calculates the sum of x, x^2 and xy
+            /*// Calculates the sum of x^2 and xy
             for (int i = 0; i < xCount; i++)
             {
                 for (int j = 0; j < maxLimit; j++)
                 {
-                    sumOfX[i] += xValues[i, j];
                     sumOfXSquared[i] += Math.Pow(xValues[i, j], 2);
                     sumOfXY[i] += xValues[i, j] * yValues[j];
                 }
+            }*/
+
+            if (xCount > 0)
+            {
+                calculateMLR();
+            }
+            else
+            {
+                calculateLR();
             }
         }
-     }
+
+        private void calculateMLR()
+        {
+            Matrix<double> x = Matrix<double>.Build.DenseOfArray(xArray1);
+            Vector<double> y = Vector<double>.Build.DenseOfArray(yArray);
+            Vector<double> b = (x.Transpose() * x).Inverse() * x.Transpose() * y;
+
+            double b0 = (sumOfY / maxLimit) - (b[0] * sumOfX[0] / maxLimit) - (b[1] * sumOfX[1] / maxLimit) - (b[2] * sumOfX[2] / maxLimit);
+            MessageBox.Show("Coeffecient = " + sumOfY + "\nB1 = " + b[0] + "\nB2 = " + b[1] + "\nB3 = " + b[2]);
+        }
+
+        private void calculateLR()
+        {
+
+        }
+    }
 }

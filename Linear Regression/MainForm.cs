@@ -130,7 +130,10 @@ namespace Linear_Regression
                 maxLimit = int.Parse(limitTextBox.Text);
 
             if (independentValues.Count > 0 && dependentValues.Count > 0)
+            {
                 dataButton.Enabled = true;
+                graphButton.Enabled = true;
+            }
 
             uploadXButton.Enabled = false;
             uploadYButton.Enabled = false;
