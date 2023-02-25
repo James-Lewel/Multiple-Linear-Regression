@@ -76,7 +76,7 @@ namespace Linear_Regression
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 // Sets properties of dialog
-                openFileDialog.Title = "Open Independent Values";
+                openFileDialog.Title = "Open Dependent Values";
                 openFileDialog.Filter = "Files(*.csv)|*.csv";
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)

@@ -26,8 +26,11 @@ namespace Linear_Regression
         double[,] xArray2;
         double[] yArray;
 
+        Matrix<double> x;
+        Vector<double> y;
+        Vector<double> b;
+        double b0;
         double a;
-        double[] b;
 
         public GraphForm(List<List<string>> independentValues, List<List<string>> dependentValues, int maxLimit)
         {
@@ -76,7 +79,6 @@ namespace Linear_Regression
             yArray = new double[maxLimit];
 
             a = 0;
-            b = new double[xCount];
         }
 
         private void drawSeries()
@@ -136,27 +138,48 @@ namespace Linear_Regression
 
             if (xCount > 0)
             {
-                calculateMLR();
+                //calculateMLR();
             }
             else
             {
-                calculateLR();
+                //calculateLR();
             }
         }
 
         private void calculateMLR()
         {
-            Matrix<double> x = Matrix<double>.Build.DenseOfArray(xArray1);
-            Vector<double> y = Vector<double>.Build.DenseOfArray(yArray);
-            Vector<double> b = (x.Transpose() * x).Inverse() * x.Transpose() * y;
+            x = Matrix<double>.Build.DenseOfArray(xArray1);
+            y = Vector<double>.Build.DenseOfArray(yArray);
+            b = (x.Transpose() * x).Inverse() * x.Transpose() * y;
 
-            double b0 = (sumOfY / maxLimit) - (b[0] * sumOfX[0] / maxLimit) - (b[1] * sumOfX[1] / maxLimit) - (b[2] * sumOfX[2] / maxLimit);
-            MessageBox.Show("Coeffecient = " + sumOfY + "\nB1 = " + b[0] + "\nB2 = " + b[1] + "\nB3 = " + b[2]);
+            b0 = (sumOfY / maxLimit);
+
+            for(int i = 0; i < xCount; i++)
+            {
+                b0 += b[i] * (sumOfX[i] / maxLimit);
+                //MessageBox.Show("B" + i + " = " + b[i]);
+            }
         }
 
         private void calculateLR()
         {
 
+        }
+
+        private void calculateButton_Click(object sender, EventArgs e)
+        {
+            string[] inputX = inputTextBox.Text.Split(',');
+            double predictor = 227.5331948;
+
+            // Add values here
+            string[] inputCoefficient = textBox1.Text.Split(',');
+
+            for (int i = 0; i < xCount; i++)
+            {
+                predictor += double.Parse(inputCoefficient[i]) * double.Parse(inputX[i]);
+            }
+
+            MessageBox.Show("Calories burned should be : " + predictor);
         }
     }
 }
