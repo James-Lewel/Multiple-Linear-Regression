@@ -138,7 +138,7 @@ namespace Linear_Regression
 
             if (xCount > 0)
             {
-                //calculateMLR();
+                calculateMLR();
             }
             else
             {
