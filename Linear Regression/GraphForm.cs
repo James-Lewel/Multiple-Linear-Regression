@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using MathNet.Numerics;
 
 namespace Linear_Regression
 {
     public partial class GraphForm : Form
     {
-        Series[] series;
+        System.Windows.Forms.DataVisualization.Charting.Series[] series;
 
         List<List<string>> independentValues;
         List<List<string>> dependentValues;
@@ -22,15 +23,10 @@ namespace Linear_Regression
         double sumOfY;
         double[] sumOfX;
 
-        double[,] xArray1;
+        double[][] xArray1;
         double[,] xArray2;
         double[] yArray;
-
-        Matrix<double> x;
-        Vector<double> y;
-        Vector<double> b;
-        double b0;
-        double a;
+        double[] intercepts;
 
         public GraphForm(List<List<string>> independentValues, List<List<string>> dependentValues, int maxLimit)
         {
@@ -54,7 +50,7 @@ namespace Linear_Regression
             chart.Series.Clear();
 
             Random random = new Random();
-            series = new Series[independentValues[0].Count];
+            series = new System.Windows.Forms.DataVisualization.Charting.Series[independentValues[0].Count];
 
             // Adds and initialize series
             for (int i = 0; i < independentValues[0].Count; i++)
@@ -74,11 +70,10 @@ namespace Linear_Regression
             sumOfY = 0;
             sumOfX = new double[xCount];
 
-            xArray1 = new double[maxLimit, xCount];
+            xArray1 = new double[maxLimit][];
             xArray2 = new double[xCount, maxLimit];
-            yArray = new double[maxLimit];
 
-            a = 0;
+            yArray = new double[maxLimit];
         }
 
         private void drawSeries()
@@ -98,10 +93,10 @@ namespace Linear_Regression
             // Transfers list to array
             for (int i = 1; i <= maxLimit; i++)
             {
+                xArray1[i - 1] = new double[xCount];
                 for (int j = 0; j < xCount; j++)
                 {
-                    xArray1[i - 1, j] = double.Parse(independentValues[i][j]);
-                    //sumOfX[i] += xValues[i, j - 1];
+                    xArray1[i - 1][j] = double.Parse(independentValues[i][j]);
                 }
             }
 
@@ -125,61 +120,63 @@ namespace Linear_Regression
                     sumOfY += yArray[j - 1];
                 }
             }
-
-            /*// Calculates the sum of x^2 and xy
-            for (int i = 0; i < xCount; i++)
-            {
-                for (int j = 0; j < maxLimit; j++)
-                {
-                    sumOfXSquared[i] += Math.Pow(xValues[i, j], 2);
-                    sumOfXY[i] += xValues[i, j] * yValues[j];
-                }
-            }*/
-
-            if (xCount > 0)
-            {
-                calculateMLR();
-            }
-            else
-            {
-                //calculateLR();
-            }
         }
 
+        
         private void calculateMLR()
         {
-            x = Matrix<double>.Build.DenseOfArray(xArray1);
-            y = Vector<double>.Build.DenseOfArray(yArray);
-            b = (x.Transpose() * x).Inverse() * x.Transpose() * y;
-
-            b0 = (sumOfY / maxLimit);
-
-            for(int i = 0; i < xCount; i++)
-            {
-                b0 += b[i] * (sumOfX[i] / maxLimit);
-                //MessageBox.Show("B" + i + " = " + b[i]);
-            }
+            intercepts = Fit.MultiDim(xArray1, yArray, intercept: true);
         }
 
         private void calculateLR()
         {
+            var M = Matrix<double>.Build;
+            var V = Vector<double>.Build;
 
+            List<double> xData = new List<double>();
+            List<double> yData = new List<double>();
+
+            foreach(var x in xArray2)
+            {
+                xData.Add(x);
+            }
+
+            foreach(var y in yArray)
+            {
+                yData.Add(y);
+            }
+
+            var X = M.DenseOfColumnVectors(V.Dense(xData.ToArray().Length, 1.0), V.Dense(xData.ToArray()));
+            var Y = V.Dense(yData.ToArray());
+
+            intercepts = X.QR().Solve(Y).ToArray();
         }
 
         private void calculateButton_Click(object sender, EventArgs e)
         {
             string[] inputX = inputTextBox.Text.Split(',');
-            double predictor = 227.5331948;
 
-            // Add values here
-            string[] inputCoefficient = textBox1.Text.Split(',');
+            double predict = 0;
 
-            for (int i = 0; i < xCount; i++)
+            if (xCount > 1)
             {
-                predictor += double.Parse(inputCoefficient[i]) * double.Parse(inputX[i]);
+                calculateMLR();
+
+                predict = intercepts[0];
+                for (int i = 0; i < xCount; i++)
+                {
+                    predict += intercepts[i + 1] * double.Parse(inputX[i]);
+                }
+            }
+            else
+            {
+                calculateLR();
+
+                predict = intercepts[0] + (intercepts[1] * double.Parse(inputX[0]));
             }
 
-            MessageBox.Show("Calories burned should be : " + predictor);
+
+            MessageBox.Show("Calories burned should be : " + predict);
         }
     }
 }
