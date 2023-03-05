@@ -176,7 +176,7 @@ namespace Linear_Regression
             }
 
 
-            MessageBox.Show("Calories burned should be : " + predict);
+            MessageBox.Show("Criterion Variable : " + predict);
         }
     }
 }
